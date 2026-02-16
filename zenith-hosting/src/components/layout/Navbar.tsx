@@ -3,17 +3,16 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Logo } from "@/components/ui/Logo";
 
-const navItems = [
-    { name: "Home", href: "/" },
-    { name: "VPS", href: "/vps" },
-    { name: "Minecraft", href: "/minecraft" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+const links = [
+    { href: "/", label: "Home" },
+    { href: "/vps", label: "VPS Hosting" },
+    { href: "/minecraft", label: "Game Servers" },
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
 ];
 
 export function Navbar() {
@@ -23,126 +22,129 @@ export function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 0);
+            setScrolled(window.scrollY > 20);
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    useEffect(() => {
+        setIsOpen(false);
+    }, [pathname]);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+    }, [isOpen]);
 
     return (
         <>
             <motion.nav
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className={cn(
-                    "fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent",
-                    scrolled ? "glass-nav h-[70px]" : "bg-transparent h-[90px]"
+                    "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-12 py-5 transition-all duration-300",
+                    scrolled ? "bg-black/95 backdrop-blur-md border-b border-neutral-900" : "bg-transparent"
                 )}
             >
-                <div className="w-full px-8 md:px-12 h-full flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-2 group">
-                        <Logo className="w-5 h-5" textSize="text-[15px]" />
-                    </Link>
+                <Link href="/" className="relative z-50">
+                    <span className="text-lg font-semibold tracking-tight text-neutral-100 hover:text-white transition-colors">
+                        ZENITH HOSTING
+                    </span>
+                </Link>
 
-                    {/* Desktop Navigation - Strictly Centered */}
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center gap-1">
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.href}
-                                href={item.href}
-                                className={cn(
-                                    "px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-300",
-                                    pathname === item.href
-                                        ? "text-white bg-white/10"
-                                        : "text-zinc-400 hover:text-white hover:bg-white/5"
-                                )}
-                            >
-                                {item.name === "Minecraft" ? "Game Cloud" : item.name}
-                            </Link>
-                        ))}
-                    </div>
-
-                    <div className="hidden md:flex items-center gap-4">
+                {/* Desktop Navigation */}
+                <div className="hidden lg:flex items-center gap-8">
+                    {links.map((link) => (
                         <Link
-                            href="/login"
-                            className="text-[13px] font-medium text-zinc-400 hover:text-white transition-colors"
+                            key={link.href}
+                            href={link.href}
+                            className={cn(
+                                "text-sm font-medium tracking-wide transition-colors uppercase",
+                                pathname === link.href
+                                    ? "text-white"
+                                    : "text-neutral-400 hover:text-white"
+                            )}
                         >
-                            Log in
+                            {link.label}
                         </Link>
-                        <Link
-                            href="/signup"
-                            className="bg-white text-black px-5 py-2 rounded-full text-[13px] font-medium hover:bg-zinc-200 transition-colors shadow-lg shadow-white/5"
-                        >
-                            Get Started
-                        </Link>
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <button
-                        className="md:hidden text-white p-2"
-                        onClick={() => setIsOpen(!isOpen)}
+                    ))}
+                    <Link
+                        href="/contact"
+                        className="ml-4 px-6 py-2.5 bg-white text-black text-sm font-semibold tracking-wide uppercase hover:bg-neutral-200 transition-colors"
                     >
-                        {isOpen ? <X size={20} /> : <Menu size={20} />}
-                    </button>
+                        Get Started
+                    </Link>
                 </div>
+
+                {/* Mobile Menu Button */}
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="lg:hidden relative z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+                    aria-label="Toggle menu"
+                >
+                    <motion.span
+                        animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }}
+                        className="w-6 h-[2px] bg-white transition-colors"
+                    />
+                    <motion.span
+                        animate={{ opacity: isOpen ? 0 : 1 }}
+                        className="w-6 h-[2px] bg-white transition-colors"
+                    />
+                    <motion.span
+                        animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -6 : 0 }}
+                        className="w-6 h-[2px] bg-white transition-colors"
+                    />
+                </button>
             </motion.nav>
 
             {/* Mobile Menu Overlay */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "100vh" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="fixed inset-0 z-40 bg-black pt-20 px-6 md:hidden overflow-hidden"
-                    >
-                        <div className="flex flex-col gap-2 mt-4">
-                            {navItems.map((item, i) => (
-                                <motion.div
-                                    key={item.href}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: i * 0.05 }}
-                                >
-                                    <Link
-                                        href={item.href}
-                                        onClick={() => setIsOpen(false)}
-                                        className={cn(
-                                            "text-2xl font-medium block py-3 border-b border-white/10 flex justify-between items-center",
-                                            pathname === item.href ? "text-white" : "text-zinc-400"
-                                        )}
-                                    >
-                                        {item.name}
-                                        <ChevronRight size={16} className="opacity-50" />
-                                    </Link>
-                                </motion.div>
-                            ))}
+            {isOpen && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="fixed inset-0 z-40 bg-black lg:hidden"
+                >
+                    <div className="flex flex-col items-center justify-center h-full gap-8 px-6">
+                        {links.map((link, index) => (
                             <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.3 }}
-                                className="mt-8 flex flex-col gap-3"
+                                key={link.href}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1, duration: 0.3 }}
                             >
                                 <Link
-                                    href="/login"
-                                    onClick={() => setIsOpen(false)}
-                                    className="w-full py-3 text-center rounded-lg bg-zinc-900 text-white font-medium border border-white/10 text-sm"
+                                    href={link.href}
+                                    className={cn(
+                                        "text-3xl font-semibold tracking-tight transition-colors uppercase",
+                                        pathname === link.href ? "text-white" : "text-neutral-500 hover:text-white"
+                                    )}
                                 >
-                                    Log in
-                                </Link>
-                                <Link
-                                    href="/signup"
-                                    onClick={() => setIsOpen(false)}
-                                    className="w-full py-3 text-center rounded-lg bg-white text-black font-medium text-sm"
-                                >
-                                    Get Started
+                                    {link.label}
                                 </Link>
                             </motion.div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                        ))}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: links.length * 0.1, duration: 0.3 }}
+                            className="mt-8"
+                        >
+                            <Link
+                                href="/contact"
+                                className="px-8 py-4 bg-white text-black text-lg font-semibold tracking-wide uppercase hover:bg-neutral-200 transition-colors inline-block"
+                            >
+                                Get Started
+                            </Link>
+                        </motion.div>
+                    </div>
+                </motion.div>
+            )}
         </>
     );
 }

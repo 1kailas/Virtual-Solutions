@@ -3,10 +3,9 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { ParticleBackground } from "@/components/ui/ParticleBackground";
 
 const inter = Inter({
-  variable: "--font-geist-sans", // Keeping variable name for compatibility with established CSS
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
@@ -16,8 +15,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Virtual Solutions | Premium Cloud & Game Servers",
-  description: "High-performance VPS and Minecraft hosting solutions with enterprise-grade protection and premium support.",
+  title: "Zenith Hosting | Enterprise Cloud Infrastructure & Hosting Solutions",
+  description: "Professional-grade VPS and game server hosting with enterprise security, 99.9% uptime SLA, and 24/7 expert support.",
 };
 
 export default function RootLayout({
@@ -28,11 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-black text-white min-h-screen flex flex-col`}
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-black text-neutral-200 min-h-screen flex flex-col`}
       >
-        <ParticleBackground />
         <Navbar />
-        <main className="flex-grow pt-20">
+        <main className="flex-grow">
           {children}
         </main>
         <Footer />

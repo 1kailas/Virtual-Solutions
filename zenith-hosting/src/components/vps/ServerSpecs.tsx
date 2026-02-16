@@ -1,62 +1,77 @@
-import { Cpu, HardDrive, Zap } from "lucide-react";
+import { Cpu, HardDrive, Zap, Shield } from "lucide-react";
 
 export function ServerSpecs() {
     return (
-        <section className="bg-zinc-900 rounded-3xl overflow-hidden border border-white/5 relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5" />
-
+        <section className="mt-24 bg-neutral-950 border border-neutral-900 overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="p-12 md:p-20 flex flex-col justify-center relative z-10">
-                    <h2 className="text-3xl md:text-4xl font-semibold mb-6 text-white tracking-tight">
-                        Power of Ryzen 9.
+                <div className="p-10 md:p-16 flex flex-col justify-center">
+                    <div className="mb-6">
+                        <span className="px-3 py-1 border border-neutral-800 bg-neutral-900 text-xs font-medium text-neutral-400 tracking-wider uppercase">
+                            Technical Specifications
+                        </span>
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white tracking-tight">
+                        Enterprise Hardware
                     </h2>
-                    <p className="text-zinc-400 text-lg leading-relaxed mb-10 font-light">
-                        Every instance is powered by the AMD Ryzen 9 7950X, delivering unparalleled single-threaded performance.
-                        Combined with DDR5 memory and Gen4 NVMe storage, your applications will run faster than ever before.
+                    <p className="text-neutral-400 text-base leading-relaxed mb-10">
+                        All VPS instances are powered by AMD Ryzen 9 7950X processors with DDR5 ECC memory 
+                        and Gen4 NVMe storage for maximum performance and reliability.
                     </p>
 
                     <div className="space-y-6">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-black/50 border border-white/5 flex items-center justify-center text-white">
-                                <Cpu size={24} />
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 border border-neutral-800 bg-neutral-900 flex items-center justify-center text-neutral-400 flex-shrink-0">
+                                <Cpu size={20} />
                             </div>
                             <div>
-                                <h3 className="text-white font-medium">AMD Ryzen 9 7950X</h3>
-                                <p className="text-zinc-500 text-sm">Up to 5.7 GHz Boost Clock</p>
+                                <h3 className="text-white font-semibold text-sm mb-1">AMD Ryzen 9 7950X</h3>
+                                <p className="text-neutral-500 text-sm">16-core processor up to 5.7 GHz</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-black/50 border border-white/5 flex items-center justify-center text-white">
-                                <Zap size={24} />
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 border border-neutral-800 bg-neutral-900 flex items-center justify-center text-neutral-400 flex-shrink-0">
+                                <Zap size={20} />
                             </div>
                             <div>
-                                <h3 className="text-white font-medium">DDR5 Memory</h3>
-                                <p className="text-zinc-500 text-sm">4800 MHz ECC RAM</p>
+                                <h3 className="text-white font-semibold text-sm mb-1">DDR5 ECC Memory</h3>
+                                <p className="text-neutral-500 text-sm">Error-correcting RAM at 4800 MHz</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-black/50 border border-white/5 flex items-center justify-center text-white">
-                                <HardDrive size={24} />
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 border border-neutral-800 bg-neutral-900 flex items-center justify-center text-neutral-400 flex-shrink-0">
+                                <HardDrive size={20} />
                             </div>
                             <div>
-                                <h3 className="text-white font-medium">NVMe Gen4 Storage</h3>
-                                <p className="text-zinc-500 text-sm">7000 MB/s Read Speeds</p>
+                                <h3 className="text-white font-semibold text-sm mb-1">NVMe Gen4 Storage</h3>
+                                <p className="text-neutral-500 text-sm">7000 MB/s sequential read speeds</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 border border-neutral-800 bg-neutral-900 flex items-center justify-center text-neutral-400 flex-shrink-0">
+                                <Shield size={20} />
+                            </div>
+                            <div>
+                                <h3 className="text-white font-semibold text-sm mb-1">DDoS Protection</h3>
+                                <p className="text-neutral-500 text-sm">Multi-layer enterprise security included</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-black/50 p-12 md:p-20 flex items-center justify-center border-l border-white/5">
-                    {/* Abstract Representation of Chip */}
-                    <div className="relative w-64 h-64 md:w-80 md:h-80">
-                        <div className="absolute inset-0 bg-zinc-800 rounded-3xl border border-white/10 rotate-3 transform transition-transform duration-1000 hover:rotate-6 shadow-2xl shadow-indigo-500/10 flex items-center justify-center">
-                            <div className="text-zinc-600 font-mono text-xs p-4 opacity-50 absolute top-4 left-4">
-                                RYZEN 9 7950X
+                <div className="bg-black p-10 md:p-16 flex items-center justify-center border-l border-neutral-900">
+                    <div className="relative w-full max-w-xs aspect-square">
+                        <div className="absolute inset-0 bg-neutral-900 border border-neutral-800 flex items-center justify-center">
+                            <div className="text-center">
+                                <Cpu size={64} className="text-neutral-700 mx-auto mb-4" />
+                                <div className="font-mono text-xs text-neutral-600 tracking-wider">
+                                    RYZEN 9 7950X
+                                </div>
+                                <div className="mt-2 flex items-center justify-center gap-2">
+                                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                                    <span className="text-xs text-neutral-600">OPERATIONAL</span>
+                                </div>
                             </div>
-                            <Cpu size={80} className="text-zinc-700 opacity-20" />
-                            <div className="absolute bottom-10 right-10 w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
                         </div>
-                        <div className="absolute inset-0 bg-zinc-700/50 rounded-3xl border border-white/5 -rotate-3 transform -z-10 blur-sm" />
                     </div>
                 </div>
             </div>

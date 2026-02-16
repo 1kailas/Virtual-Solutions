@@ -1,127 +1,105 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { useRef } from "react";
-import { ShieldCheck, Zap, Globe, Cpu } from "lucide-react";
+import { motion } from "framer-motion";
+import { ShieldCheck, Zap, Globe, Server, Clock, Headphones } from "lucide-react";
 
-function FeatureSection({
-    title,
-    subtitle,
-    description,
-    align = "left",
-    visual
-}: {
-    title: string;
-    subtitle: string;
-    description: string;
-    align?: "left" | "right";
-    visual: React.ReactNode;
-}) {
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start end", "end start"]
-    });
-
-    const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-    const opacity = useTransform(scrollYProgress, [0, 0.3, 0.8, 1], [0, 1, 1, 0]);
-
-    return (
-        <section ref={ref} className="min-h-screen flex items-center justify-center py-40 overflow-hidden relative">
-            <div className="container mx-auto px-6 max-w-[1400px]">
-                <div className={cn(
-                    "flex flex-col md:flex-row items-center gap-20 md:gap-40",
-                    align === "right" ? "md:flex-row-reverse" : ""
-                )}>
-                    {/* Text Content */}
-                    <motion.div
-                        style={{ opacity }}
-                        className="flex-1 space-y-8"
-                    >
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-sm text-zinc-300 font-medium tracking-wide uppercase backdrop-blur-md">
-                            {title}
-                        </div>
-                        <h2 className="text-pro-display text-white">
-                            {subtitle}
-                        </h2>
-                        <p className="text-pro-body text-zinc-400 max-w-lg">
-                            {description}
-                        </p>
-                    </motion.div>
-
-                    {/* Visual Content */}
-                    <div className="flex-1 relative w-full aspect-square md:aspect-auto md:h-[600px] flex items-center justify-center">
-                        {visual}
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-}
+const features = [
+    {
+        icon: ShieldCheck,
+        title: "Enterprise Security",
+        description: "Multi-layer DDoS protection, SSL certificates, automated backups, and 24/7 security monitoring to keep your infrastructure safe."
+    },
+    {
+        icon: Zap,
+        title: "High Performance",
+        description: "AMD Ryzen 9 processors, NVMe SSD storage, and dedicated resources ensure maximum speed and reliability for your applications."
+    },
+    {
+        icon: Globe,
+        title: "Global Network",
+        description: "24 data centers strategically located worldwide with intelligent routing for optimal latency and 99.9% uptime guarantee."
+    },
+    {
+        icon: Server,
+        title: "Scalable Infrastructure",
+        description: "Easily scale resources up or down based on demand. From startup to enterprise, we grow with your business needs."
+    },
+    {
+        icon: Clock,
+        title: "Instant Deployment",
+        description: "Deploy servers in under 60 seconds with our automated provisioning system. Get started immediately with zero setup hassle."
+    },
+    {
+        icon: Headphones,
+        title: "Expert Support",
+        description: "24/7 professional support from our experienced team. Average response time under 15 minutes for critical issues."
+    }
+];
 
 export function Features() {
     return (
-        <div className="bg-black relative z-10 space-y-20">
+        <section className="py-24 lg:py-32 bg-black border-t border-neutral-900">
+            <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
+                
+                {/* Section Header */}
+                <div className="text-center mb-20">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                        className="inline-block mb-6"
+                    >
+                        <span className="px-4 py-2 border border-neutral-800 bg-neutral-950 text-xs font-medium text-neutral-400 tracking-wider uppercase">
+                            Why Choose Zenith
+                        </span>
+                    </motion.div>
+                    
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight"
+                    >
+                        Built for <span className="text-neutral-500">Professionals</span>
+                    </motion.h2>
+                    
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="text-lg text-neutral-400 max-w-2xl mx-auto"
+                    >
+                        Enterprise-grade infrastructure with the reliability and support your business demands.
+                    </motion.p>
+                </div>
 
-            {/* Feature 1: Global Mesh */}
-            <FeatureSection
-                title="Global Network"
-                subtitle="Latency is a choice. We chose zero."
-                description="Our intelligent mesh routing automatically finds the fastest path for your data. With 24 regions active and more coming online, your users are never far from the edge."
-                align="left"
-                visual={
-                    <div className="relative w-full h-full flex items-center justify-center">
-                        <div className="absolute inset-0 bg-indigo-500/10 rounded-full blur-[100px]" />
-                        <div className="relative w-[80%] h-[80%] border border-white/10 rounded-full animate-[spin_60s_linear_infinite]">
-                            <div className="absolute inset-0 border border-t-white/50 border-transparent rounded-full" />
-                        </div>
-                        <div className="absolute w-[60%] h-[60%] border border-white/10 rounded-full animate-[spin_40s_linear_infinite_reverse]">
-                            <Globe size={48} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/20" />
-                        </div>
-                    </div>
-                }
-            />
-
-            {/* Feature 2: Performance */}
-            <FeatureSection
-                title="Performance"
-                subtitle="Speed that defies physics."
-                description="Powered by the latest Ryzen 9 processors and PCIe Gen 4 NVMe storage. We don't just host your applications; we accelerate them to their theoretical limits."
-                align="right"
-                visual={
-                    <div className="relative w-full h-full flex items-center justify-center bg-zinc-900/20 border border-white/5 rounded-3xl overflow-hidden">
-                        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-                        <div className="flex items-end gap-4 h-[300px] items-center">
-                            {[...Array(5)].map((_, i) => (
-                                <motion.div
-                                    key={i}
-                                    className="w-8 bg-white rounded-md"
-                                    animate={{ height: [40, 150 + (i * 30), 40] }}
-                                    transition={{ duration: 1.5, delay: i * 0.1, repeat: Infinity, ease: "easeInOut" }}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                }
-            />
-
-            {/* Feature 3: Security */}
-            <FeatureSection
-                title="Security"
-                subtitle="Unbreakable protection."
-                description="Our multi-layered DDoS mitigation scrubs traffic in real-time, ensuring that malicious actors never touch your infrastructure. Staying online isn't a feature; it's a guarantee."
-                align="left"
-                visual={
-                    <div className="relative w-full h-full flex items-center justify-center">
-                        <ShieldCheck size={120} strokeWidth={1} className="text-white/80" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-[300px] h-[300px] border border-white/10 rounded-full animate-pulse" />
-                            <div className="absolute w-[400px] h-[400px] border border-white/5 rounded-full" />
-                        </div>
-                    </div>
-                }
-            />
-        </div>
+                {/* Features Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {features.map((feature, index) => (
+                        <motion.div
+                            key={feature.title}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="group p-8 border border-neutral-900 bg-neutral-950/30 hover:border-neutral-800 hover:bg-neutral-950/60 transition-all duration-300"
+                        >
+                            <div className="w-12 h-12 flex items-center justify-center border border-neutral-800 bg-neutral-900 mb-6 group-hover:border-neutral-700 transition-colors">
+                                <feature.icon className="w-6 h-6 text-neutral-400" />
+                            </div>
+                            <h3 className="text-xl font-semibold text-white mb-3 tracking-tight">
+                                {feature.title}
+                            </h3>
+                            <p className="text-neutral-500 text-sm leading-relaxed">
+                                {feature.description}
+                            </p>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </section>
     );
 }

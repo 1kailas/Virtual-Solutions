@@ -5,78 +5,91 @@ import { motion } from "framer-motion";
 
 const testimonials = [
     {
-        name: "Alex Rivera",
-        role: "Minecraft Server Owner",
-        content: "The performance is unmatched. We migrated our 200+ player SMP and haven't seen a single TPS drop since.",
+        name: "Michael Thompson",
+        role: "CTO, TechCorp Solutions",
+        content: "Zenith Hosting has been instrumental in scaling our infrastructure. Their professional support team and reliable uptime have exceeded our expectations.",
         rating: 5,
     },
     {
-        name: "Sarah Chen",
-        role: "Full Stack Developer",
-        content: "Virtual Solutions' VPS instances are blazing fast. Deployments that used to take minutes now take seconds.",
+        name: "Sarah Williams",
+        role: "DevOps Lead, CloudScale Inc",
+        content: "Outstanding performance and security. The deployment speed and server management tools have significantly improved our workflow efficiency.",
         rating: 5,
     },
     {
-        name: "Marcus Johnson",
-        role: "Game Studio Lead",
-        content: "Best DDoS protection in the industry. We were getting hit daily before switching to Virtual Solutions. Now it's smooth sailing.",
+        name: "James Rodriguez",
+        role: "IT Director, DataSync Systems",
+        content: "After evaluating multiple providers, Zenith stood out for their enterprise-grade infrastructure and responsive 24/7 support. Highly recommended.",
         rating: 5,
     },
     {
-        name: "David Kim",
-        role: "DevOps Engineer",
-        content: "The API is a joy to work with. Automating our infrastructure scaling has never been easier.",
+        name: "Emily Chen",
+        role: "VP of Engineering, AppDynamics",
+        content: "Their DDoS protection and security measures are second to none. We've had zero downtime since migrating to Zenith Hosting.",
         rating: 5,
     }
 ];
 
 export function Testimonials() {
     return (
-        <section className="py-32 bg-black overflow-hidden relative border-t border-white/5">
-            <div className="container mx-auto px-6 max-w-7xl mb-12">
-                <h2 className="text-3xl md:text-4xl font-semibold text-center text-white tracking-tight">
-                    Trusted by <span className="text-zinc-500">Developers.</span>
-                </h2>
-            </div>
-
-            <div className="relative w-full">
-                <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
-                <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
-
-                <div className="flex overflow-hidden">
+        <section className="py-24 lg:py-32 bg-black border-t border-neutral-900">
+            <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
+                
+                {/* Section Header */}
+                <div className="text-center mb-16">
                     <motion.div
-                        className="flex gap-6 px-6"
-                        animate={{ x: "-50%" }}
-                        transition={{
-                            duration: 30,
-                            repeat: Infinity,
-                            ease: "linear",
-                            repeatType: "loop"
-                        }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                        className="inline-block mb-6"
                     >
-                        {[...testimonials, ...testimonials].map((t, i) => (
-                            <div
-                                key={i}
-                                className="flex-shrink-0 w-[400px] p-8 rounded-3xl bg-zinc-900/30 border border-white/5 backdrop-blur-sm"
-                            >
-                                <div className="flex gap-1 mb-4">
-                                    {[...Array(t.rating)].map((_, i) => (
-                                        <Star key={i} size={14} className="fill-white text-white" />
-                                    ))}
+                        <span className="px-4 py-2 border border-neutral-800 bg-neutral-950 text-xs font-medium text-neutral-400 tracking-wider uppercase">
+                            Client Testimonials
+                        </span>
+                    </motion.div>
+                    
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="text-4xl md:text-5xl font-bold text-white tracking-tight"
+                    >
+                        Trusted by <span className="text-neutral-500">Industry Leaders</span>
+                    </motion.h2>
+                </div>
+
+                {/* Testimonials Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {testimonials.map((testimonial, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="p-8 border border-neutral-900 bg-neutral-950/30"
+                        >
+                            <div className="flex gap-1 mb-6">
+                                {[...Array(testimonial.rating)].map((_, i) => (
+                                    <Star key={i} size={16} className="fill-white text-white" />
+                                ))}
+                            </div>
+                            <p className="text-neutral-300 mb-8 leading-relaxed text-base">
+                                "{testimonial.content}"
+                            </p>
+                            <div className="flex items-center gap-4 pt-6 border-t border-neutral-900">
+                                <div className="w-12 h-12 flex items-center justify-center border border-neutral-800 bg-neutral-900 text-white font-semibold text-sm">
+                                    {testimonial.name.split(' ').map(n => n[0]).join('')}
                                 </div>
-                                <p className="text-zinc-300 mb-8 leading-relaxed text-[15px]">"{t.content}"</p>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white to-zinc-400 flex items-center justify-center text-black font-bold text-sm">
-                                        {t.name.charAt(0)}
-                                    </div>
-                                    <div>
-                                        <p className="font-medium text-white text-sm">{t.name}</p>
-                                        <p className="text-xs text-zinc-500">{t.role}</p>
-                                    </div>
+                                <div>
+                                    <p className="font-semibold text-white text-sm">{testimonial.name}</p>
+                                    <p className="text-xs text-neutral-500">{testimonial.role}</p>
                                 </div>
                             </div>
-                        ))}
-                    </motion.div>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
         </section>

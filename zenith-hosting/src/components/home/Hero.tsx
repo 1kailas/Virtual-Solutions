@@ -1,113 +1,112 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { ChevronRight, ArrowRight } from "lucide-react";
-import { useRef } from "react";
+import { ArrowRight, Shield, Zap, Globe } from "lucide-react";
 
 export function Hero() {
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start start", "end start"]
-    });
-
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-    const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
     return (
-        <section ref={ref} className="relative h-screen min-h-[900px] flex flex-col items-center justify-center overflow-hidden bg-black selection:bg-white selection:text-black">
+        <section className="relative min-h-screen flex flex-col items-center justify-center bg-black pt-24 pb-20">
+            
+            {/* Subtle Grid Background */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] opacity-20" />
 
-            {/* Cinematic Background Layer */}
-            <div className="absolute inset-0 z-0">
-                {/* Starfield / Particles */}
-                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03]" />
-
-                {/* Central Glow - The "Core" */}
-                <motion.div
-                    style={{ scale: useTransform(scrollYProgress, [0, 1], [1, 1.5]) }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[1000px] max-h-[1000px] bg-white/[0.02] rounded-full blur-[100px] pointer-events-none"
-                />
-            </div>
-
-            {/* Content Container - z-10 for interactivity */}
-            <motion.div
-                style={{ y, opacity }}
-                className="relative z-10 container mx-auto px-6 h-full flex flex-col items-center justify-center text-center max-w-[1400px]"
-            >
-                {/* Badge - Micro-interaction */}
+            <div className="relative z-10 container mx-auto px-6 lg:px-12 max-w-7xl">
+                
+                {/* Status Badge */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="mb-12"
+                    transition={{ duration: 0.5 }}
+                    className="mb-12 text-center"
                 >
-                    <Link href="/vps" className="group inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.08] transition-all duration-300 backdrop-blur-md cursor-pointer">
+                    <div className="inline-flex items-center gap-3 px-4 py-2 border border-neutral-800 bg-neutral-950 text-xs font-medium text-neutral-400 tracking-wider uppercase">
                         <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                         </span>
-                        <span className="text-sm font-medium text-zinc-300 tracking-wide uppercase">New Regions Available</span>
-                        <ChevronRight size={14} className="text-zinc-500 group-hover:translate-x-0.5 transition-transform" />
-                    </Link>
+                        Operational Worldwide
+                    </div>
                 </motion.div>
 
-                {/* Main Headline - Massive Scale */}
-                <motion.h1
-                    initial={{ opacity: 0, y: 40, letterSpacing: "-0.08em" }}
-                    animate={{ opacity: 1, y: 0, letterSpacing: "-0.04em" }}
-                    transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-pro-display-large text-white mb-10 glow-text"
-                >
-                    Infrastructure <br />
-                    <span className="text-zinc-600">Reimagined.</span>
-                </motion.h1>
-
-                {/* Subtext - Professional Body */}
-                <motion.p
-                    initial={{ opacity: 0, y: 40 }}
+                {/* Main Headline */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-pro-body text-zinc-400 max-w-2xl mx-auto mb-16"
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="text-center mb-8"
                 >
-                    Experience the next generation of cloud computing.
-                    Built for speed, engineered for scale, and designed for you.
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight leading-[1.1]">
+                        Enterprise-Grade
+                        <br />
+                        <span className="text-neutral-500">Cloud Infrastructure</span>
+                    </h1>
+                </motion.div>
+
+                {/* Description */}
+                <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="text-center text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto mb-12 leading-relaxed"
+                >
+                    Professional hosting solutions backed by 99.9% uptime SLA, 
+                    enterprise security, and 24/7 expert support. 
+                    Trusted by businesses worldwide.
                 </motion.p>
 
-                {/* Primary Actions - Button Physics */}
+                {/* CTA Buttons */}
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="flex flex-col sm:flex-row items-center gap-6"
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
                 >
                     <Link
                         href="/vps"
-                        className="group relative px-10 py-5 rounded-full bg-white text-black text-lg font-semibold overflow-hidden transition-transform hover:scale-105 active:scale-95"
+                        className="group px-8 py-4 bg-white text-black font-semibold tracking-wide uppercase hover:bg-neutral-200 transition-all flex items-center gap-2"
                     >
-                        <span className="relative z-10">Deploy Server</span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-                    </Link>
-
-                    <Link
-                        href="/minecraft"
-                        className="group text-lg font-medium text-zinc-400 hover:text-white transition-colors flex items-center gap-2"
-                    >
-                        View Game Cloud
+                        View VPS Plans
                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
+                    <Link
+                        href="/contact"
+                        className="px-8 py-4 border border-neutral-700 text-white font-semibold tracking-wide uppercase hover:border-neutral-500 hover:bg-neutral-950 transition-all"
+                    >
+                        Contact Sales
+                    </Link>
                 </motion.div>
-            </motion.div>
 
-            {/* Scroll Indicator */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 1 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-            >
-                <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-zinc-500 to-transparent" />
-            </motion.div>
+                {/* Stats/Features Grid */}
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+                >
+                    <div className="flex flex-col items-center text-center p-8 border border-neutral-900 bg-neutral-950/50">
+                        <Shield className="w-10 h-10 text-neutral-400 mb-4" />
+                        <h3 className="text-lg font-semibold text-white mb-2 tracking-wide uppercase">Secure</h3>
+                        <p className="text-sm text-neutral-500">
+                            Enterprise DDoS protection and multi-layer security infrastructure
+                        </p>
+                    </div>
+                    <div className="flex flex-col items-center text-center p-8 border border-neutral-900 bg-neutral-950/50">
+                        <Zap className="w-10 h-10 text-neutral-400 mb-4" />
+                        <h3 className="text-lg font-semibold text-white mb-2 tracking-wide uppercase">Fast</h3>
+                        <p className="text-sm text-neutral-500">
+                            Latest AMD Ryzen processors with NVMe SSD storage
+                        </p>
+                    </div>
+                    <div className="flex flex-col items-center text-center p-8 border border-neutral-900 bg-neutral-950/50">
+                        <Globe className="w-10 h-10 text-neutral-400 mb-4" />
+                        <h3 className="text-lg font-semibold text-white mb-2 tracking-wide uppercase">Global</h3>
+                        <p className="text-sm text-neutral-500">
+                            24 data centers across 6 continents for optimal performance
+                        </p>
+                    </div>
+                </motion.div>
+            </div>
         </section>
     );
 }
